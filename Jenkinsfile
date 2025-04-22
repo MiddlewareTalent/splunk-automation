@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         SPLUNK_PATH = '"C:\\Program Files\\Splunk\\etc\\system\\local"'  // Update this if your Splunk is in another drive
-
     }
 
     stages {
@@ -16,8 +15,16 @@ pipeline {
         stage('Copy inputs.conf') {
             steps {
                 bat '''
+                echo Checking if inputs.conf exists...
+                if exist "%WORKSPACE%\\splunk\\inputs.conf" (
+                    echo inputs.conf found.
+                ) else (
+                    echo inputs.conf not found. Please verify the file path.
+                    exit /b 1
+                )
+
                 echo Copying inputs.conf to Splunk local folder...
-                xcopy /Y "%WORKSPACE%\\splunk\\inputs.conf" %SPLUNK_PATH%\\inputs.conf
+                xcopy /Y "%WORKSPACE%\\splunk\\inputs.conf" "C:\\Program Files\\Splunk\\etc\\system\\local\\inputs.conf"
                 if errorlevel 1 (
                     echo ERROR: Failed to copy inputs.conf!
                     exit /b 1
