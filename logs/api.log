@@ -1,0 +1,5 @@
+2025-04-21 09:01:15 INFO  [API] GET /api/employees - 200 OK
+2025-04-21 09:01:18 INFO  [API] POST /api/employees - 201 Created
+2025-04-21 09:01:20 WARN  [API] GET /api/unknown - 404 Not Found
+2025-04-21 09:01:22 ERROR [API] DELETE /api/employees/12 - 500 Internal Server Error
+2025-04-21 09:01:25 INFO  [API] PUT /api/employees/3 - 200 OK
