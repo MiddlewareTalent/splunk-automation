@@ -1,31 +1,38 @@
 pipeline {
     agent any
 
-    environment {
-        SPLUNK_PATH = '"C:\\Program Files\\Splunk"'
-        INPUTS_CONF_SOURCE = 'inputs\\inputs.conf'
-        INPUTS_CONF_DEST = 'C:\\Program Files\\Splunk\\etc\\system\\local\\inputs.conf'
-    }
-
     stages {
-        stage('Pull From GitHub') {
+        stage('Clone Repo') {
             steps {
-                git branch: 'main', url: 'https://github.com/your-repo/splunk-log-config.git'
+                git credentialsId: 'Git', url: 'https://github.com/MiddlewareTalent/splunk-automation.git', branch: 'main'
             }
         }
 
         stage('Copy inputs.conf to Splunk') {
             steps {
-                bat "copy ${INPUTS_CONF_SOURCE} \"${INPUTS_CONF_DEST}\" /Y"
+                bat '''
+                echo Copying inputs.conf to Splunk local directory...
+                copy inputs\\inputs.conf "C:\\Program Files\\Splunk\\etc\\apps\\search\\local\\inputs.conf" /Y
+                '''
+            }
+        }
+
+        stage('Copy Logs (Optional)') {
+            steps {
+                bat '''
+                echo Copying logs to monitored folder...
+                xcopy logs\\* "C:\\sample_logs\\" /Y
+                '''
             }
         }
 
         stage('Restart Splunk') {
             steps {
-                bat "\"${SPLUNK_PATH}\\bin\\splunk.exe\" restart"
+                bat '''
+                echo Restarting Splunk to apply changes...
+                "C:\\Program Files\\Splunk\\bin\\splunk.exe" restart
+                '''
             }
         }
     }
 }
-
-//comment
