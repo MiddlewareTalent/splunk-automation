@@ -2,27 +2,16 @@ pipeline {
     agent any
 
     environment {
-        SPLUNK_PATH = '"C:\\Program Files\\Splunk\\etc\\system\\local"'  // Change if Splunk is installed elsewhere
+        LOCAL_INPUTS_PATH = 'D:\\splunk-log-config\\inputs\\inputs.conf'
+        SPLUNK_LOCAL_CONF_PATH = 'C:\\Program Files\\Splunk\\etc\\system\\local\\inputs.conf'
     }
 
     stages {
-        stage('Clone Repo') {
-            steps {
-                git credentialsId: 'Git', url: 'https://github.com/MiddlewareTalent/splunk-automation.git', branch: 'main'
-            }
-        }
-
-        stage('Check Directory') {
-            steps {
-                bat 'dir "%WORKSPACE%\\splunk-log-config\\inputs"'
-            }
-        }
-
-        stage('Copy inputs.conf') {
+        stage('Copy inputs.conf from local path') {
             steps {
                 bat '''
                 echo Checking if inputs.conf exists...
-                if exist "%WORKSPACE%\\splunk-log-config\\inputs\\inputs.conf" (
+                if exist "%LOCAL_INPUTS_PATH%" (
                     echo inputs.conf found.
                 ) else (
                     echo inputs.conf not found. Please verify the file path.
@@ -30,7 +19,7 @@ pipeline {
                 )
 
                 echo Copying inputs.conf to Splunk local folder...
-                xcopy /Y "%WORKSPACE%\\splunk-log-config\\inputs\\inputs.conf" "C:\\Program Files\\Splunk\\etc\\system\\local\\inputs.conf"
+                xcopy /Y "%LOCAL_INPUTS_PATH%" "%SPLUNK_LOCAL_CONF_PATH%"
                 if errorlevel 1 (
                     echo ERROR: Failed to copy inputs.conf!
                     exit /b 1
@@ -41,10 +30,7 @@ pipeline {
 
         stage('Restart Splunk') {
             steps {
-                bat '''
-                echo Restarting Splunk service...
-                "C:\\Program Files\\Splunk\\bin\\splunk.exe" restart
-                '''
+                bat '"C:\\Program Files\\Splunk\\bin\\splunk.exe" restart'
             }
         }
     }
