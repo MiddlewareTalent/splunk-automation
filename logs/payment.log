@@ -1,5 +1,0 @@
-2025-04-21 09:05:00 INFO  [PAYMENT] Payment initiated for user 'john_smith' - ₹1200
-2025-04-21 09:05:02 INFO  [PAYMENT] Payment processed successfully - Transaction ID: TXN90876
-2025-04-21 09:05:05 ERROR [PAYMENT] Failed to process payment for user 'alice' - Card expired
-2025-04-21 09:05:10 WARN  [PAYMENT] Retry attempt for user 'alice'
-2025-04-21 09:05:12 INFO  [PAYMENT] Payment retry successful - Transaction ID: TXN90880

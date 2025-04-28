@@ -1,9 +1,0 @@
-2024-04-22 10:03:45 ERROR [UserService] - Failed to fetch user data for ID: 12345 - Error: NullPointerException
-2024-04-22 10:04:02 WARN  [AuthController] - Invalid token received from IP: 192.168.100.120
-2024-04-22 10:05:10 ERROR [PaymentService] - Payment gateway timeout for transaction ID: TXN901234
-2024-04-22 10:06:27 ERROR [OrderController] - Unable to update order status - DBConnectionError
-2024-04-22 10:07:43 WARN  [RateLimiter] - Too many requests from IP: 172.16.254.3 - Throttled
-2024-04-22 10:08:55 ERROR [InventoryService] - Item ID: 5678 not found in catalog
-2024-04-22 10:09:13 ERROR [LoggerMiddleware] - Unhandled exception caught in request: /api/v1/products - Error: TypeError: Cannot read property 'name' of undefined
-2024-04-22 10:10:44 WARN  [SessionManager] - Expired session accessed by user: ravi.t@example.com
-ravi logs

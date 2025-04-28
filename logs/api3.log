@@ -1,3 +1,0 @@
-2024-04-22 11:12:03 INFO  [LoginService] - User 'ravi.t' logged in successfully from IP: 192.168.100.117
-2024-04-22 11:13:10 WARN  [LoginService] - Multiple failed login attempts for user: john.doe
-2024-04-22 11:14:22 ERROR [LoginController] - Login failed for user 'sneha.p' - Reason: Account locked
